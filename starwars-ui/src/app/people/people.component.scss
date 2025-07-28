@@ -1,0 +1,139 @@
+.people-container {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 1000px;
+  margin: 2rem auto;
+
+  h2 {
+    font-size: 2rem;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: 1.5rem;
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: none;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', sans-serif;
+
+    th, td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #444;
+      text-align: left;
+    }
+
+    th {
+      background-color: #222;
+      color: #ffc107;
+    }
+
+    td {
+      color: #ddd;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Orbitron', sans-serif;
+
+    button {
+      background-color: #ffc107;
+      border: none;
+      padding: 0.5rem 1rem;
+      color: #000;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .back-button-container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+
+    .back-btn {
+      background-color: #ffe81f;
+      color: black;
+      font-family: 'Star Jedi', sans-serif;
+      border: 2px solid #ffe81f;
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-shadow: none;
+      text-decoration: none;
+
+      &:hover {
+        background-color: black;
+        color: #ffe81f;
+        text-shadow: 0 0 5px #ffe81f;
+      }
+    }
+  }
+
+  .glyph-symbol-special {
+    font-family: 'Star Jedi Special', sans-serif;
+    font-size: 8rem;
+    color: #ffe81f;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.loading, .error, .empty {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.loading {
+  color: #ffe81f;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.empty {
+  color: gray;
+  font-style: italic;
+}
+th.sortable {
+  cursor: pointer;
+  color: #ffe81f;
+  user-select: none;
+
+  .sort-icons {
+    margin-left: 0.5rem;
+    color: #ffe81f;
+    font-size: 0.9rem;
+  }
+}
+
+

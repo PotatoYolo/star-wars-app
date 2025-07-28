@@ -1,0 +1,81 @@
+.home-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+.menu-card {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 4rem 3rem;
+  border-radius: 2rem;
+  text-align: center;
+  box-shadow: 0 0 30px #ffe81f;
+  border: 2px solid #ffe81f;
+  max-width: 450px;
+  width: 90%;
+}
+
+:host ::ng-deep .menu-title {
+  font-family: 'Star Jedi Hollow', sans-serif !important;
+  font-size: 4rem;
+  color: #ffe81f;
+  margin-bottom: 1rem;
+  text-shadow: none;
+}
+
+:host ::ng-deep .menu-subtitle {
+  font-family: 'Star Jedi Hollow', sans-serif !important;
+  font-size: 1.5rem;
+  color: #ffe81f;
+  margin-bottom: 2rem;
+  text-shadow: none;
+}
+
+:host ::ng-deep .menu-btn {
+  display: block;
+  width: 100%;
+  margin: 0.6rem 0;
+  padding: 0.9rem 1rem;
+  font-size: 1.3rem;
+  font-family: 'Star Jedi', sans-serif !important;
+  background-color: #ffe81f;
+  color: black;
+  border: 2px solid #ffe81f;
+  border-radius: 8px;
+  cursor: pointer;
+  text-shadow: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: black;
+    color: #ffe81f;
+    text-shadow: 0 0 4px #ffe81f;
+  }
+}
+.title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: nowrap;
+}
+
+.menu-title {
+  white-space: nowrap;
+  font-size: 4rem;
+  line-height: 1;
+  margin: 0;
+}
+
+.glyph-symbol-jedi {
+  font-family: 'Star Jedi', sans-serif !important;
+  font-size: 2.5rem;
+  color: #ffe81f;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
