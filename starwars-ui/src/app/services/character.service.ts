@@ -33,11 +33,11 @@ export class CharacterService {
 
   getSupportData() {
     return this.http.get<{
-      films: { id: number; title: string }[],
-      species: { id: number; name: string }[],
-      vehicles: { id: number; name: string }[],
-      starships: { id: number; name: string }[],
-      planets: { id: number; name: string }[]
-    }>('/api/characters/support-data');
+      films:    { id: number; title: string }[],
+      species:  { id: number; name:  string }[],
+      vehicles: { id: number; name:  string }[],
+      starships:{ id: number; name:  string }[],
+      planets:  { id: number; name:  string }[]
+    }>(`${this.apiUrl}/support-data`);
   }
 }
