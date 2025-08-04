@@ -78,7 +78,7 @@ class CharacterIntegrationTest {
 
         var response = result.getResponse().getContentAsString();
         PageResponse<CharacterFormDTO> page = objectMapper.readValue(response, new TypeReference<>() {});
-        assertThat(page.totalElements).isEqualTo(3);
+        assertThat(page.getTotalElements()).isEqualTo(3);
     }
 
     @Test
@@ -105,7 +105,7 @@ class CharacterIntegrationTest {
 
         var response = result.getResponse().getContentAsString();
         PageResponse<CharacterFormDTO> page = objectMapper.readValue(response, new TypeReference<>() {});
-        assertThat(page.totalElements).isEqualTo(2);
+        assertThat(page.getTotalElements()).isEqualTo(2);
     }
 
     @Test
@@ -168,7 +168,7 @@ class CharacterIntegrationTest {
 
         var response = result.getResponse().getContentAsString();
         PageResponse<CharacterFormDTO> page = objectMapper.readValue(response, new TypeReference<>() {});
-        assertThat(page.content.getFirst().getName()).isEqualTo("Anakin");
+        assertThat(page.getContent().getFirst().getName()).isEqualTo("Anakin");
     }
 
     @Test
