@@ -1,4 +1,4 @@
-.planets-container {
+.vehicles-container {
     background-color: rgba(0, 0, 0, 0.75);
     padding: 2rem;
     border-radius: 8px;
@@ -197,7 +197,6 @@
     .modal-content strong {
       color: #ffc107;
       font-weight: bold;
-      margin-bottom: 80rem;
     }
 
     .modal-content .extra {
@@ -205,16 +204,6 @@
       width: 100%;
     }
 
-    .modal-content p {
-      margin: 0.6rem 0;
-      line-height: 2;
-      text-align: justify;
-    }
-
-    .modal-content p strong {
-      color: #ffc107;
-      font-weight: bold;
-    }
     .modal-content button {
       margin-top: 1.5rem;
       background-color: #ffe81f;
@@ -283,7 +272,6 @@
         font-size: 5rem;
       }
     }
-
   .pagination {
     gap: 1rem;
     .pages {
@@ -308,5 +296,13 @@
       color: #ffc107;
       padding: 0 0.3rem;
     }
+  }
+
+  .clamp {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
   }
 }

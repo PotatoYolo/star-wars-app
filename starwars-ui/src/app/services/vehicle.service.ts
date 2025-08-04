@@ -2,19 +2,18 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Page } from '../models/page.model';
-import { Planet } from '../models/planet.model';
+import { Vehicle } from '../models/vehicle.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PlanetsService {
-
-  private readonly apiUrl = `${environment.apiUrl}/planets`;
+export class VehicleService {
+  private readonly apiUrl = `${environment.apiUrl}/vehicles`;
 
   constructor(private readonly http: HttpClient) {}
 
-  getAllPlanets(page: number, size: number, search: string, sort: string): Observable<Page<Planet>> {
+  getAllVehicles(page: number, size: number, search: string, sort: string): Observable<Page<Vehicle>> {
     let params = new HttpParams()
       .set('page', page)
       .set('size', size)
@@ -24,6 +23,6 @@ export class PlanetsService {
       params = params.set('sort', sort);
     }
 
-    return this.http.get<Page<Planet>>(this.apiUrl, { params });
+    return this.http.get<Page<Vehicle>>(this.apiUrl, { params });
   }
 }

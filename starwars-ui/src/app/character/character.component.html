@@ -1,0 +1,171 @@
+<div class="character-container">
+  <span class="glyph-symbol-special">@</span>
+  <h2>Characters</h2>
+
+  <button (click)="openCreate()" class="btn-add">+ Add New Character</button>
+
+  <input
+    type="text"
+    [(ngModel)]="search"
+    (ngModelChange)="onSearchChange()"
+    placeholder="Search by name..."
+  />
+
+  @if (isLoading) {
+    <div class="loading">Loading...</div>
+  }
+
+  @if (hasError) {
+    <div class="error">{{ errorMessage }}</div>
+  }
+
+  @if (isEmpty && !isLoading && !hasError) {
+    <div class="empty">No characters found.</div>
+  }
+
+  @if (!isLoading && !hasError && !isEmpty) {
+    <table>
+      <thead>
+      <tr>
+        <th
+          tabindex="0"
+          (click)="changeSort('name')"
+          (keydown.enter)="changeSort('name')"
+          (keydown.space)="changeSort('name')">
+          Name
+          @if (sort === 'name,asc') {
+            <span class="arrow">▲</span>
+          } @else if (sort === 'name,desc') {
+            <span class="arrow">▼</span>
+          } @else {
+            <span class="arrow">▲▼</span>
+          }
+        </th>
+        <th>Height</th>
+        <th>Mass</th>
+        <th
+        tabindex="0"
+        (click)="changeSort('created')"
+        (keydown.enter)="changeSort('created')"
+        (keydown.space)="changeSort('created')">
+        Created
+          @if (sort === 'created,asc') {
+            <span class="arrow">▲</span>
+          } @else if (sort === 'created,desc') {
+            <span class="arrow">▼</span>
+          } @else {
+            <span class="arrow">▲▼</span>
+          }
+        </th>
+        <th>Info</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (person of people; track person) {
+          <tr>
+            <td>{{ person.name }}</td>
+            <td>{{ person.height }}</td>
+            <td>{{ person.mass }}</td>
+            <td>{{ person.created | date:'short' }}</td>
+            <td>
+              <div class="action-buttons">
+                <button class="material-icon-btn" (click)="openModal(person)" title="More info">
+                  <span class="material-icons">visibility</span>
+                </button>
+
+                <button class="material-icon-btn" (click)="editCharacter(person)" title="Edit">
+                  <span class="material-icons">edit</span>
+                </button>
+
+                <button class="material-icon-btn" (click)="deleteCharacter(person.id)" title="Delete">
+                  <span class="material-icons">delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="page === 0">Previous</button>
+
+      <div class="pages">
+        @for (p of pages; track p) {
+          @if (p === -1) {
+            <span class="dots">…</span>
+          } @else {
+            <button
+              class="page-btn"
+              [class.active]="p === page"
+              (click)="goToPage(p)"
+            >
+              {{ p + 1 }}
+            </button>
+          }
+        }
+      </div>
+
+      <button (click)="nextPage()" [disabled]="page + 1 >= totalPages">Next</button>
+    </div>
+
+  }
+
+  <div class="back-button-container">
+    <button routerLink="/" class="back-btn">← Back to Home</button>
+  </div>
+
+  @if (selectedPerson) {
+    <div class="modal">
+      <div class="modal-content compact">
+        <h3 class="vehicle-title">{{ selectedPerson.name }}</h3>
+
+        <div class="grid">
+          <p><strong>Height:</strong> {{ selectedPerson.height }} cm</p>
+          <p><strong>Mass:</strong> {{ selectedPerson.mass }} kg</p>
+          <p><strong>Hair Color:</strong> {{ selectedPerson.hairColor }}</p>
+          <p><strong>Skin Color:</strong> {{ selectedPerson.skinColor }}</p>
+          <p><strong>Eye Color:</strong> {{ selectedPerson.eyeColor }}</p>
+          <p><strong>Birth Year:</strong> {{ selectedPerson.birthYear }}</p>
+          <p><strong>Gender:</strong> {{ selectedPerson.gender }}</p>
+          <p><strong>Homeworld:</strong> {{ selectedPerson.homeworld }}</p>
+        </div>
+
+        <div class="extra">
+          <p><strong>Species:</strong> {{ selectedPerson.species.join(', ') || 'None' }}</p>
+          <p><strong>Vehicles:</strong> {{ selectedPerson.vehicles.join(', ') || 'None' }}</p>
+          <p><strong>Starships:</strong> {{ selectedPerson.starships.join(', ') || 'None' }}</p>
+          <p><strong>Films:</strong> {{ selectedPerson.films.join(', ') || 'None' }}</p>
+        </div>
+
+        <button (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  }
+
+  @if (editForm) {
+    <app-character-edit-form
+      [character]="editForm"
+      [films]="films"
+      [species]="species"
+      [vehicles]="vehicles"
+      [starships]="starships"
+      [planets]="planets"
+      (save)="saveEdit($event)"
+      (cancel)="cancelEdit()"
+    ></app-character-edit-form>
+  }
+
+  @if (createMode) {
+    <app-create-character-form
+      [character]="createForm"
+      [films]="films"
+      [species]="species"
+      [planets]="planets"
+      [vehicles]="vehicles"
+      [starships]="starships"
+      (save)="saveCreate($event)"
+      (cancel)="cancelCreate()"
+    />
+  }
+</div>

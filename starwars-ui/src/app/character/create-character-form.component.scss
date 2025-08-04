@@ -1,0 +1,185 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 2vh 1rem;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background-color: #111;
+  color: #ddd;
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 720px;
+  width: 100%;
+  font-family: 'Orbitron', monospace;
+  box-shadow: 0 0 20px rgba(255, 232, 31, 0.3);
+  border: 1px solid #ffe81f;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  box-sizing: border-box;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-content h3 {
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 0 0 6px #ffe81f, 0 0 10px #ffe81f;
+  font-family: 'Segoe UI', sans-serif;
+  margin-bottom: 0.5rem;
+}
+
+form {
+  width: 100%;
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-top: 0.75rem;
+    color: #ffc107;
+    font-size: 0.9rem;
+  }
+
+  label:first-of-type {
+    margin-top: 0 !important;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.4rem;
+    margin-top: 0.3rem;
+    border-radius: 4px;
+    border: none;
+    font-family: 'Orbitron', monospace;
+    background: #222;
+    color: #fff;
+  }
+
+  small {
+    font-size: 0.7rem;
+    color: #aaa;
+  }
+
+  .form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+
+    button {
+      background-color: #ffe81f;
+      color: #000;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      font-weight: bold;
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 8px #ffe81f;
+
+      &:hover {
+        background-color: #000;
+        color: #ffe81f;
+        border: 1px solid #ffe81f;
+        box-shadow: 0 0 12px #ffe81f;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 1rem;
+    max-height: 90vh;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .form-buttons button {
+    width: 100%;
+    font-size: 1rem;
+  }
+}
+
+::ng-deep ng-select {
+  background-color: #1e1e1e !important;
+  color: #ffe81f !important;
+  font-family: 'Orbitron', monospace !important;
+
+  .ng-select-container {
+    background-color: #1e1e1e !important;
+    border: 1px solid #ffe81f !important;
+    color: #fff !important;
+  }
+
+  .ng-value {
+    background-color: #333 !important;
+    color: #fff !important;
+    margin-right: 6px !important;
+    margin-bottom: 4px !important;
+    padding: 2px 8px !important;
+    border-radius: 4px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .ng-value-icon {
+    color: #ffe81f !important;
+  }
+
+  .ng-input > input {
+    background-color: transparent !important;
+    color: #fff !important;
+  }
+
+  .ng-dropdown-panel {
+    background-color: #1e1e1e !important;
+    border: 1px solid #ffe81f !important;
+    box-shadow: 0 0 10px #ffe81f33 !important;
+  }
+
+  .ng-option {
+    background-color: #1e1e1e !important;
+    color: #ffe81f !important;
+  }
+
+  .ng-option:hover {
+    background-color: #333 !important;
+    color: #fff !important;
+  }
+
+  .ng-option-selected {
+    background-color: #444 !important;
+    color: #fff !important;
+  }
+
+  .ng-option-disabled {
+    color: #666 !important;
+    background-color: #1e1e1e !important;
+  }
+
+  .scroll-host {
+    scrollbar-color: #ffe81f #1e1e1e !important;
+  }
+}

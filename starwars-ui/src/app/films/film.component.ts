@@ -1,28 +1,27 @@
-import { Component, OnInit, inject, DestroyRef } from '@angular/core';
-import { Planet } from '../models/planet.model';
-import { PlanetsService } from '../services/planets.service';
-import { DatePipe } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { FilmService } from '../services/film.service';
+import { Film } from '../models/film.model';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { buildPagesArray } from '../shared/pagination.util';
+import { RouterLink } from '@angular/router';
+import {buildPagesArray} from '../shared/pagination.util';
 
 @Component({
-  selector: 'app-planets',
+  selector: 'app-films',
   standalone: true,
-  imports: [DatePipe, FormsModule, RouterModule],
-  templateUrl: './planets.component.html',
-  styleUrls: ['./planets.component.scss']
+  imports: [FormsModule, RouterLink],
+  templateUrl: './film.component.html',
+  styleUrls: ['./film.component.scss']
 })
-export class PlanetsComponent implements OnInit {
-  private readonly planetService = inject(PlanetsService);
-  private readonly destroyRef = inject(DestroyRef);
+export class FilmComponent implements OnInit {
+  private readonly filmService = inject(FilmService);
+
+  films: Film[] = [];
+  selectedFilm: Film | null = null;
 
   isLoading = false;
   hasError = false;
   errorMessage = '';
   isEmpty = false;
-  planets: Planet[] = [];
 
   page = 0;
   size = 15;
@@ -31,12 +30,10 @@ export class PlanetsComponent implements OnInit {
   pages: number[] = [];
 
   search = '';
-  sort = 'name,asc';
-
-  selectedPlanet: Planet | null = null;
+  sort = 'title,asc';
 
   ngOnInit(): void {
-    this.loadPlanets();
+    this.loadFilms();
   }
 
   private updatePagination(): void {
@@ -47,43 +44,42 @@ export class PlanetsComponent implements OnInit {
   goToPage(p: number): void {
     if (p === -1 || p === this.page) return;
     this.page = p;
-    this.loadPlanets();
+    this.loadFilms();
   }
 
   nextPage(): void {
     if (this.page + 1 < this.totalPages) {
       this.page++;
-      this.loadPlanets();
+      this.loadFilms();
     }
   }
 
   prevPage(): void {
     if (this.page > 0) {
       this.page--;
-      this.loadPlanets();
+      this.loadFilms();
     }
   }
 
-  loadPlanets(): void {
+  loadFilms(): void {
     this.isLoading = true;
     this.hasError = false;
     this.errorMessage = '';
     this.isEmpty = false;
 
-    this.planetService
-      .getAllPlanets(this.page, this.size, this.search, this.sort)
-      .pipe(takeUntilDestroyed(this.destroyRef))
+    this.filmService
+      .getAllFilms(this.page, this.size, this.search, this.sort)
       .subscribe({
         next: data => {
-          this.planets = data.content;
+          this.films = data.content;
           this.totalElements = data.totalElements;
-          this.isEmpty = this.planets.length === 0;
+          this.isEmpty = this.films.length === 0;
           this.isLoading = false;
           this.updatePagination();
         },
         error: () => {
           this.hasError = true;
-          this.errorMessage = 'Failed to load planets.';
+          this.errorMessage = 'Failed to load films.';
           this.isLoading = false;
         }
       });
@@ -91,7 +87,7 @@ export class PlanetsComponent implements OnInit {
 
   onSearchChange(): void {
     this.page = 0;
-    this.loadPlanets();
+    this.loadFilms();
   }
 
   changeSort(field: string): void {
@@ -104,15 +100,15 @@ export class PlanetsComponent implements OnInit {
 
     this.sort = `${field},${newDir}`;
     this.page = 0;
-    this.loadPlanets();
+    this.loadFilms();
   }
 
 
-  openModal(planet: Planet): void {
-    this.selectedPlanet = planet;
+  openModal(film: Film): void {
+    this.selectedFilm = film;
   }
 
   closeModal(): void {
-    this.selectedPlanet = null;
+    this.selectedFilm = null;
   }
 }

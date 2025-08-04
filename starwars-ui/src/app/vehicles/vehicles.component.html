@@ -1,6 +1,6 @@
-<div class="planets-container">
+<div class="vehicles-container">
   <span class="glyph-symbol-special">@</span>
-  <h2>Planets</h2>
+  <h2>Vehicles</h2>
 
   <input
     type="text"
@@ -18,7 +18,7 @@
   }
 
   @if (isEmpty && !isLoading && !hasError) {
-    <div class="empty">No planets found.</div>
+    <div class="empty">No vehicles found.</div>
   }
 
   @if (!isLoading && !hasError && !isEmpty) {
@@ -39,39 +39,35 @@
             <span class="arrow">▲▼</span>
           }
         </th>
-
-        <th>Climate</th>
-        <th>Population</th>
-
-        <th
-          tabindex="0"
-          (click)="changeSort('created')"
-          (keydown.enter)="changeSort('created')"
-          (keydown.space)="changeSort('created')">
-          Created
-          @if (sort === 'created,asc') {
-            <span class="arrow">▲</span>
-          } @else if (sort === 'created,desc') {
-            <span class="arrow">▼</span>
-          } @else {
-            <span class="arrow">▲▼</span>
-          }
-        </th>
+        <th>Model</th>
+        <th>Manufacturer</th>
+        <th>Crew</th>
+        <th>Cost in Credits</th>
         <th>Info</th>
       </tr>
       </thead>
       <tbody>
-        @for (planet of planets; track planet) {
+        @for (vehicle of vehicles; track vehicle) {
           <tr>
-            <td>{{ planet.name }}</td>
-            <td>{{ planet.climate }}</td>
-            <td>{{ planet.population }}</td>
-            <td>{{ planet.created | date:'short' }}</td>
+            <td>{{ vehicle.name }}</td>
+            <td
+              class="clamp"
+              [attr.data-full]="vehicle.model">
+              {{ vehicle.model }}
+            </td>
+            <td
+              class="clamp"
+              [attr.data-full]="vehicle.manufacturer">
+              {{ vehicle.manufacturer }}
+            </td>
+            <td>{{ vehicle.crew }}</td>
+            <td>{{ vehicle.cost_in_credits }}</td>
             <td>
-              <button (click)="openModal(planet)" class="material-icon-btn" title="More info">
+              <button (click)="openModal(vehicle)" class="material-icon-btn" title="More info">
                 <span class="material-icons">visibility</span>
               </button>
             </td>
+
           </tr>
         }
       </tbody>
@@ -100,24 +96,25 @@
   <div class="back-button-container">
     <button routerLink="/" class="back-btn">← Back to Home</button>
   </div>
-  @if (selectedPlanet) {
+
+  @if (selectedVehicle) {
     <div class="modal">
       <div class="modal-content compact">
-        <h3 class="vehicle-title">{{ selectedPlanet.name }}</h3>
+        <h3>{{ selectedVehicle.name }}</h3>
 
         <div class="grid">
-          <p><strong>Climate:</strong> {{ selectedPlanet.climate }}</p>
-          <p><strong>Terrain:</strong> {{ selectedPlanet.terrain }}</p>
-          <p><strong>Population:</strong> {{ selectedPlanet.population || 'Unknown' }}</p>
-          <p><strong>Gravity:</strong> {{ selectedPlanet.gravity }}</p>
-          <p><strong>Diameter:</strong> {{ selectedPlanet.diameter }} km</p>
-          <p><strong>Rotation Period:</strong> {{ selectedPlanet.rotation_period }} hours</p>
-          <p><strong>Orbital Period:</strong> {{ selectedPlanet.orbital_period }} days</p>
+          <p><strong>Model:</strong> {{ selectedVehicle.model }}</p>
+          <p><strong>Manufacturer:</strong> {{ selectedVehicle.manufacturer }}</p>
+          <p><strong>Cost:</strong> {{ selectedVehicle.cost_in_credits }}</p>
+          <p><strong>Length:</strong> {{ selectedVehicle.length }}</p>
+          <p><strong>Crew:</strong> {{ selectedVehicle.crew }}</p>
+          <p><strong>Passengers:</strong> {{ selectedVehicle.passengers }}</p>
+          <p><strong>Class:</strong> {{ selectedVehicle.vehicle_class }}</p>
         </div>
 
         <div class="extra">
-          <p><strong>Residents:</strong> {{ selectedPlanet.residents.join(', ') || 'None' }}</p>
-          <p><strong>Films:</strong> {{ selectedPlanet.films.join(', ') || 'None' }}</p>
+          <p><strong>Films:</strong> {{ selectedVehicle.films.join(', ') }}</p>
+          <p><strong>Pilots:</strong> {{ selectedVehicle.pilots.length ? selectedVehicle.pilots.join(', ') : 'None' }}</p>
         </div>
 
         <button (click)="closeModal()">Close</button>

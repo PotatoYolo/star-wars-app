@@ -1,6 +1,6 @@
-<div class="planets-container">
+<div class="species-container">
   <span class="glyph-symbol-special">@</span>
-  <h2>Planets</h2>
+  <h2>Species</h2>
 
   <input
     type="text"
@@ -18,7 +18,7 @@
   }
 
   @if (isEmpty && !isLoading && !hasError) {
-    <div class="empty">No planets found.</div>
+    <div class="empty">No species found.</div>
   }
 
   @if (!isLoading && !hasError && !isEmpty) {
@@ -39,36 +39,23 @@
             <span class="arrow">▲▼</span>
           }
         </th>
-
-        <th>Climate</th>
-        <th>Population</th>
-
-        <th
-          tabindex="0"
-          (click)="changeSort('created')"
-          (keydown.enter)="changeSort('created')"
-          (keydown.space)="changeSort('created')">
-          Created
-          @if (sort === 'created,asc') {
-            <span class="arrow">▲</span>
-          } @else if (sort === 'created,desc') {
-            <span class="arrow">▼</span>
-          } @else {
-            <span class="arrow">▲▼</span>
-          }
-        </th>
+        <th>Classification</th>
+        <th>Designation</th>
+        <th>Language</th>
+        <th>Homeworld</th>
         <th>Info</th>
       </tr>
       </thead>
       <tbody>
-        @for (planet of planets; track planet) {
+        @for (species of speciesList; track species) {
           <tr>
-            <td>{{ planet.name }}</td>
-            <td>{{ planet.climate }}</td>
-            <td>{{ planet.population }}</td>
-            <td>{{ planet.created | date:'short' }}</td>
+            <td>{{ species.name }}</td>
+            <td>{{ species.classification }}</td>
+            <td>{{ species.designation }}</td>
+            <td>{{ species.language }}</td>
+            <td>{{ species.homeworld }}</td>
             <td>
-              <button (click)="openModal(planet)" class="material-icon-btn" title="More info">
+              <button (click)="openModal(species)" class="material-icon-btn" title="More info">
                 <span class="material-icons">visibility</span>
               </button>
             </td>
@@ -100,24 +87,27 @@
   <div class="back-button-container">
     <button routerLink="/" class="back-btn">← Back to Home</button>
   </div>
-  @if (selectedPlanet) {
+
+  @if (selectedSpecies) {
     <div class="modal">
       <div class="modal-content compact">
-        <h3 class="vehicle-title">{{ selectedPlanet.name }}</h3>
+        <h3 class="vehicle-title">{{ selectedSpecies.name }}</h3>
 
         <div class="grid">
-          <p><strong>Climate:</strong> {{ selectedPlanet.climate }}</p>
-          <p><strong>Terrain:</strong> {{ selectedPlanet.terrain }}</p>
-          <p><strong>Population:</strong> {{ selectedPlanet.population || 'Unknown' }}</p>
-          <p><strong>Gravity:</strong> {{ selectedPlanet.gravity }}</p>
-          <p><strong>Diameter:</strong> {{ selectedPlanet.diameter }} km</p>
-          <p><strong>Rotation Period:</strong> {{ selectedPlanet.rotation_period }} hours</p>
-          <p><strong>Orbital Period:</strong> {{ selectedPlanet.orbital_period }} days</p>
+          <p><strong>Classification:</strong> {{ selectedSpecies.classification }}</p>
+          <p><strong>Designation:</strong> {{ selectedSpecies.designation }}</p>
+          <p><strong>Average Height:</strong> {{ selectedSpecies.average_height }}</p>
+          <p><strong>Skin Colors:</strong> {{ selectedSpecies.skin_colors }}</p>
+          <p><strong>Hair Colors:</strong> {{ selectedSpecies.hair_colors }}</p>
+          <p><strong>Eye Colors:</strong> {{ selectedSpecies.eye_colors }}</p>
+          <p><strong>Average Lifespan:</strong> {{ selectedSpecies.average_lifespan }}</p>
+          <p><strong>Language:</strong> {{ selectedSpecies.language }}</p>
         </div>
 
         <div class="extra">
-          <p><strong>Residents:</strong> {{ selectedPlanet.residents.join(', ') || 'None' }}</p>
-          <p><strong>Films:</strong> {{ selectedPlanet.films.join(', ') || 'None' }}</p>
+          <p><strong>Homeworld:</strong> {{ selectedSpecies.homeworld || 'Unknown' }}</p>
+          <p><strong>Films:</strong> {{ selectedSpecies.films.join(', ') || 'None' }}</p>
+          <p><strong>People:</strong> {{ selectedSpecies.people.join(', ') || 'None' }}</p>
         </div>
 
         <button (click)="closeModal()">Close</button>

@@ -1,4 +1,4 @@
-.planets-container {
+.films-container {
     background-color: rgba(0, 0, 0, 0.75);
     padding: 2rem;
     border-radius: 8px;
@@ -205,16 +205,16 @@
       width: 100%;
     }
 
-    .modal-content p {
-      margin: 0.6rem 0;
-      line-height: 2;
-      text-align: justify;
-    }
+  .modal-content p {
+    margin: 0.6rem 0;
+    line-height: 2;
+    text-align: justify;
+  }
 
-    .modal-content p strong {
-      color: #ffc107;
-      font-weight: bold;
-    }
+  .modal-content p strong {
+    color: #ffc107;
+    font-weight: bold;
+  }
     .modal-content button {
       margin-top: 1.5rem;
       background-color: #ffe81f;
@@ -283,7 +283,6 @@
         font-size: 5rem;
       }
     }
-
   .pagination {
     gap: 1rem;
     .pages {
@@ -309,4 +308,5 @@
       padding: 0 0.3rem;
     }
   }
+
 }

@@ -53,7 +53,7 @@ button:hover {
 
 body::before {
   content: '';
-  font-family: 'Star Jedi Hollow';
+  font-family: 'Star Jedi Hollow', serif;
   display: none;
 }
 @font-face {
@@ -67,27 +67,224 @@ body::before {
   display: flex;
   justify-content: center;
 
-.back-btn {
-  display: inline-block;
-  padding: 0.9rem 1rem;
-  font-size: 1.3rem;
-  font-family: 'Star Jedi', sans-serif !important;
-  background-color: #ffe81f;
-  color: black;
-  border: 2px solid #ffe81f;
-  border-radius: 8px;
-  cursor: pointer;
-  text-shadow: none;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  text-align: center;
+  .back-btn {
+    display: inline-block;
+    padding: 0.9rem 1rem;
+    font-size: 1.3rem;
+    font-family: 'Star Jedi', sans-serif !important;
+    background-color: #ffe81f;
+    color: black;
+    border: 2px solid #ffe81f;
+    border-radius: 8px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
 
-  &:hover {
-    background-color: black;
-    color: #ffe81f;
-    text-shadow: 0 0 4px #ffe81f;
+    &:hover {
+      background-color: black;
+      color: #ffe81f;
+      text-shadow: 0 0 4px #ffe81f;
+    }
   }
 }
+  ng-select {
+    background-color: #1e1e1e !important;
+    color: #ffe81f !important;
+    font-family: 'Orbitron', monospace !important;
 
+    .ng-select-container {
+      background-color: #1e1e1e !important;
+      border: 1px solid #ffe81f !important;
+      color: #ffe81f !important;
+    }
+
+    .ng-value {
+      background-color: #333 !important;
+      color: #ffe81f !important;
+      border: none !important;
+    }
+
+    .ng-value-icon {
+      color: #ffe81f !important;
+    }
+
+    .ng-input > input {
+      background-color: transparent !important;
+      color: #ffe81f !important;
+    }
+
+    .ng-dropdown-panel {
+      background-color: #1e1e1e !important;
+      border: 1px solid #ffe81f !important;
+      box-shadow: 0 0 10px #ffe81f33 !important;
+    }
+
+    .ng-option {
+      background-color: #1e1e1e !important;
+      color: #ffe81f !important;
+    }
+
+    .ng-option:hover {
+      background-color: #333 !important;
+      color: #ffe81f !important;
+    }
+
+    .ng-option-selected {
+      background-color: #444 !important;
+      color: #ffe81f !important;
+    }
+
+    .ng-option-disabled {
+      color: #666 !important;
+      background-color: #1e1e1e !important;
+    }
+
+    .scroll-host {
+      scrollbar-color: #ffe81f #1e1e1e !important;
+    }
+  }
+  ::ng-deep ng-select {
+    background-color: #1e1e1e;
+    color: #ffe81f;
+    font-family: 'Orbitron', monospace;
+
+    .ng-select-container {
+      background-color: #1e1e1e;
+      border: 1px solid #ffe81f;
+      color: #ffe81f;
+    }
+
+    .ng-value {
+      background-color: #333;
+      color: #ffe81f;
+      border: none;
+    }
+
+    .ng-value-icon {
+      color: #ffe81f;
+    }
+
+    .ng-input > input {
+      background-color: transparent;
+      color: #ffe81f;
+    }
+
+    .ng-dropdown-panel {
+      background-color: #1e1e1e;
+      border: 1px solid #ffe81f;
+    }
+
+    .ng-option {
+      background-color: #1e1e1e;
+      color: #ffe81f;
+    }
+
+    .ng-option:hover {
+      background-color: #333;
+      color: #ffe81f;
+    }
+
+    .ng-option-selected {
+      background-color: #444;
+      color: #ffe81f;
+    }
+
+    .ng-option-disabled {
+      color: #666;
+      background-color: #1e1e1e;
+    }
+
+    .scroll-host {
+      scrollbar-color: #ffe81f #1e1e1e;
+    }
+  }
+
+.swal-border{
+  border:1px solid #ffe81f !important;
+  border-radius:8px        !important;
+}
+
+
+.swal2-actions{
+  margin-top:1.5rem !important;
+  gap:1rem !important;
+}
+
+.swal-btn-confirm{
+  background:#ffe81f         !important;
+  color:#000                 !important;
+  font-family:'Orbitron',monospace !important;
+  font-weight:700            !important;
+  padding:.5rem 1.6rem       !important;
+  border-radius:.5rem        !important;
+  border:none                !important;
+  cursor:pointer             !important;
+  transition:.25s            !important;
+}
+.swal-btn-confirm:hover{
+  background:#000            !important;
+  color:#ffe81f              !important;
+  border:1px solid #ffe81f   !important;
+}
+
+
+.swal-btn-cancel{
+  background:transparent     !important;
+  color:#ffe81f              !important;
+  font-family:'Orbitron',monospace !important;
+  font-weight:700            !important;
+  padding:.5rem 1.6rem       !important;
+  border:1px solid #ffe81f   !important;
+  border-radius:.5rem        !important;
+  cursor:pointer             !important;
+  transition:.25s            !important;
+}
+.swal-btn-cancel:hover{
+  background:#ffe81f20       !important;
+}
+
+.pagination {
+  gap: 1rem;
+  .pages {
+    justify-content: space-between;
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    font-family: 'Orbitron', monospace;
+
+  }
+  button {
+    background-color: #ffc107;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: #000;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+  .page-btn {
+    background: transparent;
+    border: none;
+    color: #ffc107;
+    font-weight: bold;
+    padding: 0.3rem 0.7rem;
+    cursor: pointer;
+    &.active {
+      background: #ffc107;
+      color: #000;
+      border-radius: 4px;
+    }
+  }
+  .dots {
+    color: #ffc107;
+    padding: 0 0.3rem;
+  }
 }
 

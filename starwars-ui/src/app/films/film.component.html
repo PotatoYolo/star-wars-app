@@ -1,0 +1,114 @@
+<div class="films-container">
+  <span class="glyph-symbol-special">@</span>
+  <h2>Films</h2>
+
+  <input
+    type="text"
+    [(ngModel)]="search"
+    (ngModelChange)="onSearchChange()"
+    placeholder="Search by title..."
+  />
+
+  @if (isLoading) {
+    <div class="loading">Loading...</div>
+  }
+
+  @if (hasError) {
+    <div class="error">{{ errorMessage }}</div>
+  }
+
+  @if (isEmpty && !isLoading && !hasError) {
+    <div class="empty">No films found.</div>
+  }
+
+  @if (!isLoading && !hasError && !isEmpty) {
+    <table>
+      <thead>
+      <tr>
+        <th
+          tabindex="0"
+          (click)="changeSort('title')"
+          (keydown.enter)="changeSort('title')"
+          (keydown.space)="changeSort('title')">
+          Title
+          @if (sort === 'title,asc') {
+            <span class="arrow">▲</span>
+          } @else if (sort === 'title,desc') {
+            <span class="arrow">▼</span>
+          } @else {
+            <span class="arrow">▲▼</span>
+          }
+        </th>
+        <th>Episode</th>
+        <th>Director</th>
+        <th>Release Date</th>
+        <th>Info</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (film of films; track film) {
+          <tr>
+            <td>{{ film.title }}</td>
+            <td>{{ film.episode_id }}</td>
+            <td>{{ film.director }}</td>
+            <td>{{ film.release_date }}</td>
+            <td>
+              <button (click)="openModal(film)" class="material-icon-btn" title="More info">
+                <span class="material-icons">visibility</span>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="page === 0">Previous</button>
+
+      <div class="pages">
+        @for (p of pages; track p) {
+          @if (p === -1) {
+            <span class="dots">…</span>
+          } @else {
+            <button class="page-btn" [class.active]="p === page" (click)="goToPage(p)">
+              {{ p + 1 }}
+            </button>
+          }
+        }
+      </div>
+
+      <button (click)="nextPage()" [disabled]="page + 1 >= totalPages">Next</button>
+    </div>
+
+  }
+
+  <div class="back-button-container">
+    <button routerLink="/" class="back-btn">← Back to Home</button>
+  </div>
+
+  @if (selectedFilm) {
+    <div class="modal">
+      <div class="modal-content compact">
+        <h3 class="vehicle-title">{{ selectedFilm.title }}</h3>
+
+        <div class="grid">
+          <p><strong>Episode:</strong> {{ selectedFilm.episode_id }}</p>
+          <p><strong>Director:</strong> {{ selectedFilm.director }}</p>
+          <p><strong>Producer:</strong> {{ selectedFilm.producer }}</p>
+          <p><strong>Release Date:</strong> {{ selectedFilm.release_date }}</p>
+        </div>
+
+        <div class="extra">
+          <p><strong>Opening Crawl:</strong> {{ selectedFilm.opening_crawl }}</p>
+          <p><strong>Characters:</strong> {{ selectedFilm.characters.join(', ') || 'None' }}</p>
+          <p><strong>Planets:</strong> {{ selectedFilm.planets.join(', ') || 'None' }}</p>
+          <p><strong>Species:</strong> {{ selectedFilm.species.join(', ') || 'None' }}</p>
+          <p><strong>Starships:</strong> {{ selectedFilm.starships.join(', ') || 'None' }}</p>
+          <p><strong>Vehicles:</strong> {{ selectedFilm.vehicles.join(', ') || 'None' }}</p>
+        </div>
+
+        <button (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  }
+</div>

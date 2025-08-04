@@ -1,0 +1,110 @@
+@if (character) {
+  <div class="modal">
+    <div class="modal-content">
+      <h4>Edit Character: {{ character.name }}</h4>
+
+      <form (ngSubmit)="submitForm()" #form="ngForm">
+        <input type="hidden" [(ngModel)]="character.id" name="id" />
+
+        <label>Name:
+          <input type="text" [(ngModel)]="character.name" name="name" required />
+        </label>
+
+        <label>Birth Year:
+          <input type="text" [(ngModel)]="character.birthYear" name="birthYear" />
+        </label>
+
+        <label>Gender:
+          <input type="text" [(ngModel)]="character.gender" name="gender" />
+        </label>
+
+        <label>Height:
+          <input type="text" [(ngModel)]="character.height" name="height" />
+        </label>
+
+        <label>Mass:
+          <input type="text" [(ngModel)]="character.mass" name="mass" />
+        </label>
+
+        <label>Hair Color:
+          <input type="text" [(ngModel)]="character.hairColor" name="hairColor" />
+        </label>
+
+        <label>Skin Color:
+          <input type="text" [(ngModel)]="character.skinColor" name="skinColor" />
+        </label>
+
+        <label>Eye Color:
+          <input type="text" [(ngModel)]="character.eyeColor" name="eyeColor" />
+        </label>
+
+        <label for="homeworldSelect">Homeworld:</label>
+        <ng-select
+          id="homeworldSelect"
+          [items]="planets"
+          bindLabel="name"
+          bindValue="id"
+          [(ngModel)]="character.homeworldId"
+          name="homeworldId"
+          placeholder="Select homeworld...">
+        </ng-select>
+
+        <label for="filmsSelect">Movies:</label>
+        <ng-select
+          [items]="films"
+          bindLabel="title"
+          bindValue="id"
+          [(ngModel)]="character.filmIds"
+          name="filmIds"
+          [multiple]="true"
+          placeholder="Select films...">
+        </ng-select>
+
+        <label for="speciesSelect">Species:</label>
+        <ng-select
+          id="speciesSelect"
+          [items]="species"
+          bindLabel="name"
+          bindValue="id"
+          [(ngModel)]="character.speciesIds"
+          name="speciesIds"
+          [multiple]="true"
+          placeholder="Select species...">
+        </ng-select>
+
+        <label for="vehicleSelect">Vehicles:</label>
+        <ng-select
+          id="vehicleSelect"
+          [items]="vehicles"
+          bindLabel="name"
+          bindValue="id"
+          [(ngModel)]="character.vehicleIds"
+          name="vehicles"
+          [multiple]="true"
+          placeholder="Select vehicles...">
+        </ng-select>
+
+        <label for="starshipSelect">Starships:</label>
+        <ng-select
+          id="starshipSelect"
+          [items]="starships"
+          bindLabel="name"
+          bindValue="id"
+          [(ngModel)]="character.starshipIds"
+          name="starships"
+          [multiple]="true"
+          placeholder="Select starships...">
+        </ng-select>
+
+        <div class="form-buttons">
+          <button type="button" (click)="cancel.emit()">
+            <i class="fab fa-empire"></i> Cancel
+          </button>
+          <button type="submit">
+            <i class="fas fa-jedi"></i> Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

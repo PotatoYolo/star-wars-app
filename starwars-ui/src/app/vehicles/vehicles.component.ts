@@ -1,28 +1,29 @@
 import { Component, OnInit, inject, DestroyRef } from '@angular/core';
-import { Planet } from '../models/planet.model';
-import { PlanetsService } from '../services/planets.service';
-import { DatePipe } from '@angular/common';
+import { VehicleService } from '../services/vehicle.service';
+import { Vehicle } from '../models/vehicle.model';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { buildPagesArray } from '../shared/pagination.util';
+import {buildPagesArray} from '../shared/pagination.util';
 
 @Component({
-  selector: 'app-planets',
+  selector: 'app-vehicles',
   standalone: true,
-  imports: [DatePipe, FormsModule, RouterModule],
-  templateUrl: './planets.component.html',
-  styleUrls: ['./planets.component.scss']
+  imports: [FormsModule, RouterLink],
+  templateUrl: './vehicles.component.html',
+  styleUrls: ['./vehicles.component.scss']
 })
-export class PlanetsComponent implements OnInit {
-  private readonly planetService = inject(PlanetsService);
+export class VehiclesComponent implements OnInit {
+  private readonly vehicleService = inject(VehicleService);
   private readonly destroyRef = inject(DestroyRef);
+
+  vehicles: Vehicle[] = [];
+  selectedVehicle: Vehicle | null = null;
 
   isLoading = false;
   hasError = false;
   errorMessage = '';
   isEmpty = false;
-  planets: Planet[] = [];
 
   page = 0;
   size = 15;
@@ -33,10 +34,8 @@ export class PlanetsComponent implements OnInit {
   search = '';
   sort = 'name,asc';
 
-  selectedPlanet: Planet | null = null;
-
   ngOnInit(): void {
-    this.loadPlanets();
+    this.loadVehicles();
   }
 
   private updatePagination(): void {
@@ -47,43 +46,43 @@ export class PlanetsComponent implements OnInit {
   goToPage(p: number): void {
     if (p === -1 || p === this.page) return;
     this.page = p;
-    this.loadPlanets();
+    this.loadVehicles();
   }
 
   nextPage(): void {
     if (this.page + 1 < this.totalPages) {
       this.page++;
-      this.loadPlanets();
+      this.loadVehicles();
     }
   }
 
   prevPage(): void {
     if (this.page > 0) {
       this.page--;
-      this.loadPlanets();
+      this.loadVehicles();
     }
   }
 
-  loadPlanets(): void {
+  loadVehicles(): void {
     this.isLoading = true;
     this.hasError = false;
     this.errorMessage = '';
     this.isEmpty = false;
 
-    this.planetService
-      .getAllPlanets(this.page, this.size, this.search, this.sort)
+    this.vehicleService
+      .getAllVehicles(this.page, this.size, this.search, this.sort)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: data => {
-          this.planets = data.content;
+          this.vehicles = data.content;
           this.totalElements = data.totalElements;
-          this.isEmpty = this.planets.length === 0;
+          this.isEmpty = this.vehicles.length === 0;
           this.isLoading = false;
           this.updatePagination();
         },
         error: () => {
           this.hasError = true;
-          this.errorMessage = 'Failed to load planets.';
+          this.errorMessage = 'Failed to load vehicles.';
           this.isLoading = false;
         }
       });
@@ -91,7 +90,7 @@ export class PlanetsComponent implements OnInit {
 
   onSearchChange(): void {
     this.page = 0;
-    this.loadPlanets();
+    this.loadVehicles();
   }
 
   changeSort(field: string): void {
@@ -104,15 +103,14 @@ export class PlanetsComponent implements OnInit {
 
     this.sort = `${field},${newDir}`;
     this.page = 0;
-    this.loadPlanets();
+    this.loadVehicles();
   }
 
-
-  openModal(planet: Planet): void {
-    this.selectedPlanet = planet;
+  openModal(vehicle: Vehicle): void {
+    this.selectedVehicle = vehicle;
   }
 
   closeModal(): void {
-    this.selectedPlanet = null;
+    this.selectedVehicle = null;
   }
 }

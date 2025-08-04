@@ -1,107 +1,92 @@
 # Star Wars Web Application
 
-This is a full-stack web application that displays data from [SWAPI](httpsswapi.dev), using
+This is a full-stack web application that displays data from SWAPI, using:
 
-- 🧠 Backend Java 21 + Spring Boot
-- 🌐 Frontend Angular
-- 🐳 Deployed with Docker Compose on port 6969
+- Backend: Java 21 + Spring Boot
+- Frontend: Angular
+- Deployed with Docker Compose on port 6969
 
----
-
-## ✅ Features
+## Features
 
 - People and Planets listed in separate tables
 - Pagination (15 items per page)
 - Search by name (case-insensitive, partial match)
-- Sort by `name` and `created` (ascdesc)
-- Sorting logic implemented with OpenClosed principle in the backend
+- Sort by name and created (asc/desc)
+- Sorting logic implemented with Open/Closed principle in the backend
 
----
+## How to run with Docker
 
-## 🐳 How to run with Docker
+1. Clone this repository:
 
-### 1. Clone this repository
-
-```bash
-git clone httpsgithub.comyour-userstar-wars-app.git
+git clone https://github.com/your-user/star-wars-app.git  
 cd star-wars-app
-2. Build and start everything
-bash
-Copiar
-Editar
+
+2. Build and start everything:
+
 docker-compose up --build
-3. Access the app
-Frontend httplocalhost6969
 
-Backend httplocalhost8080api
+3. Access the app:
 
-🧪 How to run locally (without Docker)
-Backend
-bash
-Copiar
-Editar
-cd starwars-api
-.mvnw spring-bootrun
-Or run BackendApplication.java from your IDE.
+Frontend: http://localhost:6969  
+Backend: http://localhost:8080/api
 
-Frontend
-bash
-Copiar
-Editar
-cd starwars-ui
-npm install
+## How to run locally (without Docker)
+
+### Backend
+
+cd starwars-api  
+./mvnw spring-boot:run  
+(or run BackendApplication.java from your IDE)
+
+### Frontend
+
+cd starwars-ui  
+npm install  
 ng serve
-App will be available at httplocalhost4200
 
-⚙️ Environment config in Angular
-srcenvironmentsenvironment.ts → for local dev
+App will be available at: http://localhost:4200
 
-ts
-Copiar
-Editar
-export const environment = {
-  production false,
-  apiUrl 'httplocalhost8080api'
+## Environment config in Angular
+
+File: src/environments/environment.ts (for local development)
+
+export const environment = {  
+production: false,  
+apiUrl: 'http://localhost:8080/api'  
 };
-srcenvironmentsenvironment.prod.ts → for Docker
 
-ts
-Copiar
-Editar
-export const environment = {
-  production true,
-  apiUrl 'httpbackend8080api'
+File: src/environments/environment.prod.ts (for Docker)
+
+export const environment = {  
+production: true,  
+apiUrl: 'http://backend:8080/api'  
 };
-These are automatically switched depending on build mode.
 
-🗂 Project structure
-bash
-Copiar
-Editar
-star-wars-app
-├── docker-compose.yml
-├── README.md
-├── starwars-api        # Backend Spring Boot
-│   └── Dockerfile
-├── starwars-ui         # Frontend Angular
-│   ├── Dockerfile
-│   └── srcenvironments
-│       ├── environment.ts
+Angular will automatically switch between these depending on build mode.
+
+## Project structure
+
+star-wars-app/  
+├── docker-compose.yml  
+├── README.md  
+├── starwars-api/        (Spring Boot backend)  
+│   └── Dockerfile  
+├── starwars-ui/         (Angular frontend)  
+│   ├── Dockerfile  
+│   └── src/environments/  
+│       ├── environment.ts  
 │       └── environment.prod.ts
-🧹 Clean code & principles
-Backend designed with SOLID principles
 
-Sorting is OpenClosed compliant
+## Clean code and architecture
 
-Angular and Spring Boot are cleanly separated
+- Backend follows SOLID principles
+- Sorting logic is extensible (Open/Closed principle)
+- Angular and Spring Boot are cleanly separated
+- Docker networking used to connect frontend and backend (via service name "backend")
 
-Uses Docker networking (backend8080) to connect services
+## Technologies used
 
-🛠 Built with
-Java 21
-
-Spring Boot 3.5
-
-Angular 17+
-
-Docker & Docker Compose
+- Java 21
+- Spring Boot 3.5
+- Angular 17+
+- Docker & Docker Compose
