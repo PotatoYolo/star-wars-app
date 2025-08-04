@@ -1,7 +1,7 @@
 package com.starwars.backend.controller;
 
-import com.starwars.backend.dto.PlanetDTO;
-import com.starwars.backend.service.PlanetService;
+import com.starwars.backend.dto.StarshipDTO;
+import com.starwars.backend.service.StarshipService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -10,23 +10,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/planets")
 @RequiredArgsConstructor
+@RequestMapping("/api/starships")
 @Slf4j
-public class PlanetController {
+public class StarshipController {
 
-    private final PlanetService planetService;
+    private final StarshipService starshipService;
 
     @GetMapping
-    public ResponseEntity<Page<PlanetDTO>> getPlanets(
+    public ResponseEntity<Page<StarshipDTO>> listStarships(
             @RequestParam(required = false) String search,
-            Pageable pageable
-    ) {
+            Pageable pageable) {
         try {
-            Page<PlanetDTO> result = planetService.getPlanets(search, pageable);
+            Page<StarshipDTO> result = starshipService.getStarships(search, pageable);
             return ResponseEntity.ok(result);
         } catch (Exception e) {
-            log.error("Failed to fetch planets: {}", e.getMessage(), e);
+            log.error("Failed to fetch starships: {}", e.getMessage(), e);
             return ResponseEntity.internalServerError().build();
         }
     }
