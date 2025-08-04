@@ -83,7 +83,6 @@ public class SyncSpeciesService {
 
     private void processSpecies(SpeciesDTO dto) {
         Integer swapiId = Utils.extractSwapiId(dto.url());
-
         if (swapiId == null) {
             log.warn("Skipping species with null swapiId, url: {}", dto.url());
             return;
@@ -91,6 +90,8 @@ public class SyncSpeciesService {
 
         Species species = speciesRepository.findBySwapiId(swapiId)
                 .orElseGet(() -> mapToSpeciesEntity(dto, swapiId));
+
+        speciesRepository.saveAndFlush(species);
 
         species.getCharacters().clear();
         species.getFilms().clear();

@@ -53,16 +53,11 @@ class SyncFilmServiceTest {
                 "George Lucas",
                 "Gary Kurtz",
                 "1977-05-25",
-                List.of(),
-                List.of(),
-                List.of(),
-                List.of(),
-                List.of(),
+                List.of(), List.of(), List.of(), List.of(), List.of(),
                 OffsetDateTime.now(),
                 OffsetDateTime.now(),
                 "https://swapi.dev/api/films/1/"
         );
-
 
         SwapiResponse<FilmDTO> response = new SwapiResponse<>(1, null, null, List.of(filmDTO));
 
@@ -70,12 +65,14 @@ class SyncFilmServiceTest {
                 .thenReturn(ResponseEntity.ok(response));
 
         when(filmRepository.findBySwapiId(1)).thenReturn(Optional.empty());
+        when(filmRepository.saveAndFlush(any(Film.class))).thenAnswer(inv -> inv.getArgument(0));
+        when(filmRepository.save(any(Film.class))).thenAnswer(inv -> inv.getArgument(0));
 
         ArgumentCaptor<Film> filmCaptor = ArgumentCaptor.forClass(Film.class);
 
         syncFilmService.syncFilms();
 
-        verify(filmRepository).save(filmCaptor.capture());
+        verify(filmRepository).saveAndFlush(filmCaptor.capture());
         Film saved = filmCaptor.getValue();
 
         assertEquals("A New Hope", saved.getTitle());
@@ -84,6 +81,7 @@ class SyncFilmServiceTest {
         assertEquals("George Lucas", saved.getDirector());
         assertEquals("Gary Kurtz", saved.getProducer());
     }
+
 
     @Test
     void syncFilms_shouldSkipFilmWithInvalidSwapiId() {
@@ -166,9 +164,12 @@ class SyncFilmServiceTest {
 
         when(filmRepository.findBySwapiId(4)).thenReturn(Optional.empty());
 
+        when(filmRepository.saveAndFlush(any(Film.class))).thenAnswer(inv -> inv.getArgument(0));
+        when(filmRepository.save(any(Film.class))).thenAnswer(inv -> inv.getArgument(0));
+
         syncFilmService.syncFilms();
 
-        verify(filmRepository).save(any());
+        verify(filmRepository).saveAndFlush(any(Film.class));
     }
 
     @Test
@@ -201,21 +202,22 @@ class SyncFilmServiceTest {
         when(filmRepository.findBySwapiId(2)).thenReturn(Optional.empty());
         when(characterRepository.findBySwapiId(1)).thenReturn(Optional.of(character));
         when(planetRepository.findBySwapiId(2)).thenReturn(Optional.of(planet));
-        when(filmRepository.save(any())).thenAnswer(inv -> {
-            Film film = inv.getArgument(0);
-            film.setSwapiId(2);
-            character.getFilms().add(film);
-            planet.getFilms().add(film);
-            return film;
+
+        when(filmRepository.saveAndFlush(any(Film.class))).thenAnswer(inv -> {
+            Film f = inv.getArgument(0);
+            f.setSwapiId(2);
+            character.getFilms().add(f);
+            planet.getFilms().add(f);
+            return f;
         });
+        when(filmRepository.save(any(Film.class))).thenAnswer(inv -> inv.getArgument(0));
 
         syncFilmService.syncFilms();
 
-        ArgumentCaptor<Film> filmCaptor = ArgumentCaptor.forClass(Film.class);
-        verify(filmRepository).save(filmCaptor.capture());
-        Film savedFilm = filmCaptor.getValue();
-
         assertTrue(character.getFilms().stream().anyMatch(f -> f.getTitle().equals("Empire Strikes Back")));
         assertTrue(planet.getFilms().stream().anyMatch(f -> f.getTitle().equals("Empire Strikes Back")));
+
+        verify(filmRepository).saveAndFlush(any(Film.class));
     }
+
 }

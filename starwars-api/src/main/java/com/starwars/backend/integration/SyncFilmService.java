@@ -83,7 +83,6 @@ public class SyncFilmService {
 
     private void processFilmDTO(FilmDTO dto) {
         Integer swapiId = Utils.extractSwapiId(dto.url());
-
         if (swapiId == null) {
             log.warn("Skipping film with null swapiId, url: {}", dto.url());
             return;
@@ -91,6 +90,8 @@ public class SyncFilmService {
 
         Film film = filmRepository.findBySwapiId(swapiId)
                 .orElseGet(() -> mapToFilmEntity(dto, swapiId));
+
+        film = filmRepository.saveAndFlush(film);
 
         clearFilmRelations(film);
         mapCharactersToFilm(film, dto, swapiId);
@@ -100,6 +101,7 @@ public class SyncFilmService {
 
         log.info("Film saved/updated (swapiId={})", swapiId);
     }
+
 
     private void clearFilmRelations(Film film) {
         if (film.getCharacters() == null) film.setCharacters(new HashSet<>());
