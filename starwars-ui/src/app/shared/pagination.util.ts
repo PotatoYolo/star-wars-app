@@ -2,7 +2,7 @@ export function buildPagesArray(
   current: number,
   totalPages: number,
   maxFull = 4
-): (number | -1)[] {
+): number[] {
 
   const last = totalPages - 1;
 
@@ -10,7 +10,7 @@ export function buildPagesArray(
     return Array.from({ length: totalPages }, (_, i) => i);
   }
 
-  const arr: number[] = [];
+  const arr: number[] = [0];
 
   if (current > 2) arr.push(-1);
 
