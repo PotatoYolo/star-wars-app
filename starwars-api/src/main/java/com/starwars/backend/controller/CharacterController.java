@@ -37,8 +37,7 @@ public class CharacterController {
     @PostMapping
     public ResponseEntity<CharacterFormDTO> createCharacter(@RequestBody CharacterFormDTO dto) {
         try {
-            Character saved = characterService.createCharacter(dto);
-            CharacterFormDTO result = characterService.toDto(saved);
+            CharacterFormDTO result = characterService.createCharacter(dto);
             return ResponseEntity.status(HttpStatus.CREATED).body(result);
         } catch (Exception e) {
             log.error("Failed to create character: {}", e.getMessage(), e);

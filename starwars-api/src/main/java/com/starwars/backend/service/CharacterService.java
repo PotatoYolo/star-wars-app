@@ -54,7 +54,7 @@ public class CharacterService {
     }
 
     @Transactional
-    public Character createCharacter(CharacterFormDTO dto) {
+    public CharacterFormDTO  createCharacter(CharacterFormDTO dto) {
         try {
             log.info("Creating new character: {}", dto.getName());
             Character character = characterMapper.toEntity(dto);
@@ -69,7 +69,8 @@ public class CharacterService {
             fillRelations(character, dto);
             Character saved = characterRepository.save(character);
             log.info("Character saved with ID: {}", saved.getId());
-            return saved;
+            return characterMapper.toDto(saved);
+
         } catch (Exception ex) {
             log.error("Failed to create character", ex);
             throw new CharacterCreationException("Unable to create character", ex);

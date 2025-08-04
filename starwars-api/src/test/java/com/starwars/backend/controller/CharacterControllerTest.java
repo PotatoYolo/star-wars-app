@@ -69,8 +69,7 @@ class CharacterControllerTest {
 
     @Test
     void createCharacter_shouldReturnCreated() throws Exception {
-        when(characterService.createCharacter(any())).thenReturn(new com.starwars.backend.persisntence.entities.Character());
-        when(characterService.toDto(any())).thenReturn(mockDto);
+        when(characterService.createCharacter(any())).thenReturn(mockDto);
 
         mockMvc.perform(post("/api/characters")
                         .contentType(MediaType.APPLICATION_JSON)
